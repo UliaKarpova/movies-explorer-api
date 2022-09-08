@@ -5,7 +5,7 @@ const usersRouter = require('./usersRoutes');
 const moviesRouter = require('./moviesRoutes');
 const auth = require('../middlewares/auth');
 const {
-  login, logout, createUser,
+  login,  logout, createUser,
 } = require('../controllers/usersController');
 
 const notFoundErrorMessage = 'Роут не найден';
@@ -26,7 +26,7 @@ router.post('/signup', celebrate({
   }),
 }), createUser);
 
-/* router.use(auth); */
+router.use(auth);
 
 router.post('/signout', logout);
 router.use(usersRouter);

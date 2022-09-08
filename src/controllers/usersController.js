@@ -20,6 +20,7 @@ module.exports.login = (req, res, next) => {
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev_secret',
       );
+      /* res.send({ token }); */
       res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         sameSite: 'none',

@@ -54,7 +54,7 @@ thumbnail: {
 },
 owner: {
   type: mongoose.Schema.Types.ObjectId,
-  ref: 'userModel',
+  ref: 'user',
   required: true,
 },
 movieId: {
@@ -71,7 +71,7 @@ nameEn: {
 }
 });
 
-module.exports = mongoose.model('movieModel', movieSchema);
+module.exports = mongoose.model('movie', movieSchema);
 
 /*
 movieId — id фильма, который содержится в ответе сервиса MoviesExplorer. Обязательное поле. */

@@ -8,7 +8,8 @@ const notFoundErrorMessage = 'Карточка не найдена';
 const forbiddenDeleteCardErrorMessage = 'Можно удалять только свою карточку';
 
 module.exports.createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId  } = req.body;
+  const { country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId } = req.body;
+  console.log(req.body);
   Movie.create({
     country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId, owner: req.user._id
   })
@@ -26,7 +27,7 @@ module.exports.createMovie = (req, res, next) => {
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
-    .then((movies) => res.send({ data: movies }))
+    .then((movies) => res.send({ movies }))
     .catch(next);
 };
 
