@@ -32,7 +32,7 @@ image: {
     message: 'Ссылка указана неверно',
   },
 },
-trailerLink: {
+trailer: {
   type: String,
   required: true,
   validate: {
@@ -58,7 +58,7 @@ owner: {
   required: true,
 },
 movieId: {
-  /* type: , */
+  type: String,
   required: true,
 },
 nameRu: {
