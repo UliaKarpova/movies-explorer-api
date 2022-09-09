@@ -13,16 +13,35 @@ const NotFoundError = require('../errors/NotFoundError');
 
 router.post('/signin', celebrate({
   body: Joi.object().keys({
-    email: Joi.string().email({ tlds: { allow: false } }).required(),
-    password: Joi.string().required(),
+    email: Joi.string().email({ tlds: { allow: false } }).required()
+      .messages({
+        'string.required': 'Поле email обязательно для заполнения',
+        'string.email': 'Email указан неверно',
+      }),
+    password: Joi.string().required()
+      .messages({
+        'string.required': 'Поле password обязательно для заполнения',
+      }),
   }),
 }), login);
 
 router.post('/signup', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).required(),
-    email: Joi.string().email({ tlds: { allow: false } }).required(),
-    password: Joi.string().required(),
+    name: Joi.string().min(2).max(30).required()
+      .messages({
+        'string.required': 'Поле name обязательно для заполнения',
+        'string.min': 'Имя должно быть длинее 2 символов',
+        'string.max': 'Имя не может быть длинее 30 символов',
+      }),
+    email: Joi.string().email({ tlds: { allow: false } }).required()
+      .messages({
+        'string.required': 'Поле email обязательно для заполнения',
+        'string.email': 'Email указан неверно',
+      }),
+    password: Joi.string().required()
+      .messages({
+        'string.required': 'Поле password обязательно для заполнения',
+      }),
   }),
 }), createUser);
 

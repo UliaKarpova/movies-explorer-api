@@ -9,6 +9,7 @@ const forbiddenDeleteCardErrorMessage = 'Можно удалять только 
 
 module.exports.createMovie = (req, res, next) => {
   const { country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId } = req.body;
+  console.log(req.body);
   Movie.create({
     country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId, owner: req.user._id
   })
