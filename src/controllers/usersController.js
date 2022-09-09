@@ -20,7 +20,6 @@ module.exports.login = (req, res, next) => {
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev_secret',
       );
-      /* res.send({ token }); */
       res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         sameSite: 'none',
@@ -86,8 +85,8 @@ module.exports.updateUserInfo = (req, res, next) => {
     runValidators: true,
   })
     .then((user) => {
-      console.log(user);
-      res.send(user);
+      const { name, email } = user;
+      res.send(name, email);
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -105,7 +104,8 @@ module.exports.getUserInfo = (req, res, next) => {
       if (!user) {
         throw new NotFoundError(notFoundErrorMessage);
       }
-      res.send(user);
+      const { name, email } = user;
+      res.send(name, email);
     })
     .catch(next);
 };
