@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const NeedAutarizationError = require('../errors/NeedAutarizationError');
+
+const uncorrectEmailOrPasswordMessage = 'Неверная почта или пароль';
 
 const userSchema = new mongoose.Schema({
   email: {

@@ -5,22 +5,31 @@ const usersRouter = require('./usersRoutes');
 const moviesRouter = require('./moviesRoutes');
 const auth = require('../middlewares/auth');
 const {
-  login,  logout, createUser,
+  login, logout, createUser,
 } = require('../controllers/usersController');
 
-const notFoundErrorMessage = 'Роут не найден';
+const {
+  notFoundErrorMessageForRoute,
+  emailRequiredError,
+  emailUncorrectError,
+  passwordRequiredError,
+  nameRequiredError,
+  nameMinError,
+  nameMaxError,
+} = require('../utils/messages');
+
 const NotFoundError = require('../errors/NotFoundError');
 
 router.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().email({ tlds: { allow: false } }).required()
       .messages({
-        'string.required': 'Поле email обязательно для заполнения',
-        'string.email': 'Email указан неверно',
+        'string.required': emailRequiredError,
+        'string.email': emailUncorrectError,
       }),
     password: Joi.string().required()
       .messages({
-        'string.required': 'Поле password обязательно для заполнения',
+        'string.required': passwordRequiredError,
       }),
   }),
 }), login);
@@ -29,18 +38,18 @@ router.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required()
       .messages({
-        'string.required': 'Поле name обязательно для заполнения',
-        'string.min': 'Имя должно быть длинее 2 символов',
-        'string.max': 'Имя не может быть длинее 30 символов',
+        'string.required': nameRequiredError,
+        'string.min': nameMinError,
+        'string.max': nameMaxError,
       }),
     email: Joi.string().email({ tlds: { allow: false } }).required()
       .messages({
-        'string.required': 'Поле email обязательно для заполнения',
-        'string.email': 'Email указан неверно',
+        'string.required': emailRequiredError,
+        'string.email': emailUncorrectError,
       }),
     password: Joi.string().required()
       .messages({
-        'string.required': 'Поле password обязательно для заполнения',
+        'string.required': passwordRequiredError,
       }),
   }),
 }), createUser);
@@ -51,7 +60,7 @@ router.post('/signout', logout);
 router.use(usersRouter);
 router.use(moviesRouter);
 router.use('/', () => {
-  throw new NotFoundError(notFoundErrorMessage);
+  throw new NotFoundError(notFoundErrorMessageForRoute);
 });
 
 module.exports = router;

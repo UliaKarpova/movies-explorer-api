@@ -3,6 +3,7 @@ const { celebrate, Joi } = require('celebrate');
 const {
   updateUserInfo, getUserInfo,
 } = require('../controllers/usersController');
+const { nameMinError, nameMaxError, emailUncorrectError } = require('../utils/messages');
 
 userRoutes.get('/users/me', getUserInfo);
 
@@ -10,12 +11,12 @@ userRoutes.patch('/users/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30)
       .messages({
-        'string.min': 'Имя должно быть длинее 2 символов',
-        'string.max': 'Имя не может быть длинее 30 символов',
+        'string.min': nameMinError,
+        'string.max': nameMaxError,
       }),
     email: Joi.string().email({ tlds: { allow: false } })
       .messages({
-        'string.email': 'Email указан неверно',
+        'string.email': emailUncorrectError,
       }),
   }),
 }), updateUserInfo);

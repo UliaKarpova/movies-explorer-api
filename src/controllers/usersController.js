@@ -5,12 +5,18 @@ const NotFoundError = require('../errors/NotFoundError');
 const UncorrectDataError = require('../errors/UncorrectDataError');
 const UserAlreadyExistsError = require('../errors/UserAlreadyExistsError');
 const NeedAutarizationError = require('../errors/NeedAutarizationError');
+const { devSecretKey } = require('../utils/config');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const uncorrectDataErrorMessage = 'Переданы некорректные данные';
-const notFoundErrorMessage = 'Пользователь не найден';
-const uncorrectEmailOrPasswordMessage = 'Неправильные почта или пароль';
-const userAlreadyExistsMessage = 'Пользователь с таким email уже существует';
+const {
+  uncorrectDataErrorMessage,
+  notFoundErrorMessageForUser,
+  uncorrectEmailOrPasswordMessage,
+  userAlreadyExistsMessage,
+  authCorrect,
+  logoutCorrect,
+} = require('../utils/messages');
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
@@ -18,7 +24,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev_secret',
+        NODE_ENV === 'production' ? JWT_SECRET : devSecretKey,
       );
       res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
@@ -26,7 +32,7 @@ module.exports.login = (req, res, next) => {
         httpOnly: true,
         secure: true,
       });
-      res.send({ message: 'Аутентификация прошла успешно' });
+      res.send({ message: authCorrect });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -43,7 +49,7 @@ module.exports.logout = (req, res, next) => {
     sameSite: 'none',
     secure: true,
   });
-  res.send({ message: 'Выход осуществлён' });
+  res.send({ message: logoutCorrect });
   next();
 };
 
@@ -85,8 +91,8 @@ module.exports.updateUserInfo = (req, res, next) => {
     runValidators: true,
   })
     .then((user) => {
-      const { name, email } = user;
-      res.send({ name, email });
+      const { userName, userEmail } = user;
+      res.send({ userName, userEmail });
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -102,7 +108,7 @@ module.exports.getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError(notFoundErrorMessage);
+        throw new NotFoundError(notFoundErrorMessageForUser);
       }
       const { name, email } = user;
       res.send({ name, email });

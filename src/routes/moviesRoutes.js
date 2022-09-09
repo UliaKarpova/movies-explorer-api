@@ -6,54 +6,74 @@ const {
   createMovie, getMovies, deleteMovieById,
 } = require('../controllers/moviesController');
 
+const {
+  countryRequiredError,
+  directorRequiredError,
+  durationRequiredError,
+  yearRequiredError,
+  descriptionRequiredError,
+  imageRequiredError,
+  imageUncorrectError,
+  trailerRequiredError,
+  trailerUncorrectError,
+  nameRuRequiredError,
+  nameEnRequiredError,
+  thumbnailRequiredError,
+  thumbnailUncorrectError,
+  movieIdRequiredError,
+  movieIdLenghtError,
+  movieIdAlphanumError,
+  movieIdUncorrectError,
+} = require('../utils/messages');
+
 movieRoutes.post('/movies', celebrate({
   body: Joi.object().keys({
     country: Joi.string().required()
       .messages({
-        'string.required': 'Поле country обязательно для заполнения',
+        'string.required': countryRequiredError,
       }),
     director: Joi.string().required()
       .messages({
-        'string.required': 'Поле director обязательно для заполнения',
+        'string.required': directorRequiredError,
       }),
-   duration: Joi.number().required()
+    duration: Joi.number().required()
       .messages({
-        'number.required': 'Поле duration обязательно для заполнения',
+        'number.required': durationRequiredError,
       }),
     year: Joi.string().required()
       .messages({
-        'string.required': 'Поле year обязательно для заполнения',
+        'string.required': yearRequiredError,
       }),
     description: Joi.string().required()
       .messages({
-        'string.required': 'Поле description обязательно для заполнения',
+        'string.required': descriptionRequiredError,
       }),
     image: Joi.string().pattern(regex).required()
       .messages({
-        'string.required': 'Поле image обязательно для заполнения',
-        'string.pattern': 'Поле image должно содержать ссылку',
+        'string.required': imageRequiredError,
+        'string.pattern': imageUncorrectError,
       }),
     trailer: Joi.string().pattern(regex).required()
       .messages({
-        'string.required': 'Поле trailer обязательно для заполнения',
-        'string.pattern': 'Поле trailer должно содержать ссылку',
+        'string.required': trailerRequiredError,
+        'string.pattern': trailerUncorrectError,
       }),
     nameRu: Joi.string().required()
       .messages({
-        'string.required': 'Поле nameRU обязательно для заполнения',
+        'string.required': nameRuRequiredError,
       }),
     nameEn: Joi.string().required()
       .messages({
-        'string.required': 'Поле nameEN обязательно для заполнения',
+        'string.required': nameEnRequiredError,
       }),
     thumbnail: Joi.string().pattern(regex).required()
       .messages({
-        'string.required': 'Поле thumbnail обязательно для заполнения',
-        'string.pattern': 'Поле thumbnail должно содержать ссылку',
+        'string.required': thumbnailRequiredError,
+        'string.pattern': thumbnailUncorrectError,
       }),
     movieId: Joi.string().required()
       .messages({
-        'string.required': 'Поле movieId обязательно',
+        'string.required': movieIdRequiredError,
       }),
   }),
 }), createMovie);
@@ -64,9 +84,9 @@ movieRoutes.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().alphanum().length(24).hex()
       .messages({
-        'string.length': 'Поле movieId должно содержать 24 символа',
-        'string.alphanum': 'Поле movieId должно содержать буквы и числа',
-        'string.hex': 'Ошибка в поле movieId',
+        'string.length': movieIdLenghtError,
+        'string.alphanum': movieIdAlphanumError,
+        'string.hex': movieIdUncorrectError,
       }),
   }),
 }), deleteMovieById);

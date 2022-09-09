@@ -18,60 +18,57 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-description: {
+  description: {
     type: String,
     required: true,
-},
-image: {
-  type: String,
-  required: true,
-  validate: {
-    validator(v) {
-      return validator.isURL(v);
-    },
-    message: 'Ссылка указана неверно',
   },
-},
-trailer: {
-  type: String,
-  required: true,
-  validate: {
-    validator(v) {
-      return validator.isURL(v);
+  image: {
+    type: String,
+    required: true,
+    validate: {
+      validator(v) {
+        return validator.isURL(v);
+      },
+      message: 'Ссылка указана неверно',
     },
-    message: 'Ссылка указана неверно',
   },
-},
-thumbnail: {
-  type: String,
-  required: true,
-  validate: {
-    validator(v) {
-      return validator.isURL(v);
+  trailer: {
+    type: String,
+    required: true,
+    validate: {
+      validator(v) {
+        return validator.isURL(v);
+      },
+      message: 'Ссылка указана неверно',
     },
-    message: 'Ссылка указана неверно',
   },
-},
-owner: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: 'user',
-  required: true,
-},
-movieId: {
-  type: String,
-  required: true,
-},
-nameRu: {
-  type: String,
-  required: true,
-},
-nameEn: {
-  type: String,
-  required: true,
-}
+  thumbnail: {
+    type: String,
+    required: true,
+    validate: {
+      validator(v) {
+        return validator.isURL(v);
+      },
+      message: 'Ссылка указана неверно',
+    },
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
+  movieId: {
+    type: String,
+    required: true,
+  },
+  nameRu: {
+    type: String,
+    required: true,
+  },
+  nameEn: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('movie', movieSchema);
-
-/*
-movieId — id фильма, который содержится в ответе сервиса MoviesExplorer. Обязательное поле. */
