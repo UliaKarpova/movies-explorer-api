@@ -10,7 +10,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  duration: {
+  /*duration: {
     type: Number,
     required: true,
   },
@@ -51,13 +51,13 @@ thumbnail: {
     },
     message: 'Ссылка указана неверно',
   },
-},
+},*/
 owner: {
   type: mongoose.Schema.Types.ObjectId,
   ref: 'user',
   required: true,
 },
-movieId: {
+/*movieId: {
   type: String,
   required: true,
 },
@@ -68,7 +68,7 @@ nameRu: {
 nameEn: {
   type: String,
   required: true,
-}
+}*/
 });
 
 module.exports = mongoose.model('movie', movieSchema);
