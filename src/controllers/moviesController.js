@@ -13,8 +13,12 @@ module.exports.createMovie = (req, res, next) => {
   Movie.create({
     country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId, owner: req.user._id
   })
-    .then((movie) => {
-      res.status(200).send({ movie }).end();
+    .then(() => {
+      res.status(200).send({
+        data: {
+          country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId, owner
+        }
+       }).end();
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

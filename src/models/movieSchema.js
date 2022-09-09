@@ -52,7 +52,7 @@ thumbnail: {
     message: 'Ссылка указана неверно',
   },
 },
-owner: {
+/*owner: {
   type: mongoose.Schema.Types.ObjectId,
   ref: 'user',
   required: true,
@@ -60,7 +60,7 @@ owner: {
 movieId: {
   type: String,
   required: true,
-},
+},*/
 nameRu: {
   type: String,
   required: true,

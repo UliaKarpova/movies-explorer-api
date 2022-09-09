@@ -46,7 +46,7 @@ movieRoutes.post('/movies', celebrate({
       .messages({
         'string.required': 'Поле nameEN обязательно для заполнения',
       }),
-    thumbnail: Joi.string()./*pattern(regex).*/required()
+    thumbnail: Joi.string().pattern(regex).required()
       .messages({
         'string.required': 'Поле thumbnail обязательно для заполнения',
         'string.pattern': 'Поле thumbnail должно содержать ссылку',

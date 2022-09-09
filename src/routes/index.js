@@ -3,7 +3,7 @@ const { celebrate, Joi } = require('celebrate');
 
 const usersRouter = require('./usersRoutes');
 const moviesRouter = require('./moviesRoutes');
-const auth = require('../middlewares/auth');
+/*const auth = require('../middlewares/auth');*/
 const {
   login,  logout, createUser,
 } = require('../controllers/usersController');
@@ -45,7 +45,7 @@ router.post('/signup', celebrate({
   }),
 }), createUser);
 
-router.use(auth);
+/*router.use(auth);*/
 
 router.post('/signout', logout);
 router.use(usersRouter);
