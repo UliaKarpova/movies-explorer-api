@@ -16,7 +16,7 @@ movieRoutes.post('/movies', celebrate({
       .messages({
         'string.required': 'Поле director обязательно для заполнения',
       }),
-   /* duration: Joi.number().required()
+   duration: Joi.number().required()
       .messages({
         'number.required': 'Поле duration обязательно для заполнения',
       }),
@@ -38,11 +38,11 @@ movieRoutes.post('/movies', celebrate({
         'string.required': 'Поле trailer обязательно для заполнения',
         'string.pattern': 'Поле trailer должно содержать ссылку',
       }),
-    nameRU: Joi.string().required()
+    nameRu: Joi.string().required()
       .messages({
         'string.required': 'Поле nameRU обязательно для заполнения',
       }),
-    nameEN: Joi.string().required()
+    nameEn: Joi.string().required()
       .messages({
         'string.required': 'Поле nameEN обязательно для заполнения',
       }),
@@ -54,7 +54,7 @@ movieRoutes.post('/movies', celebrate({
     movieId: Joi.string().required()
       .messages({
         'string.required': 'Поле movieId обязательно',
-      }),*/
+      }),
   }),
 }), createMovie);
 

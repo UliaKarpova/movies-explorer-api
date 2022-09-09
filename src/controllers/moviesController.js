@@ -8,17 +8,13 @@ const notFoundErrorMessage = 'Карточка не найдена';
 const forbiddenDeleteCardErrorMessage = 'Можно удалять только свою карточку';
 
 module.exports.createMovie = (req, res, next) => {
-  const { country, director/*, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId*/ } = req.body;
+  const { country, director, duration, year, description, image, trailer, nameRu, nameEn, thumbnail, movieId } = req.body;
   console.log(req.body);
   Movie.create({
-    country, director/*, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId*/, owner: req.user._id
+    country, director, duration, year, description, image, trailer, nameRu, nameEn, thumbnail, movieId, owner: req.user._id
   })
-    .then(() => {
-      res.status(200).send({
-        data: {
-          country, director/*, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId*/, owner
-        }
-       }).end();
+    .then((movie) => {
+      res.status(200).send({ movie }).end();
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
