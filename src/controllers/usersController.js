@@ -86,7 +86,7 @@ module.exports.updateUserInfo = (req, res, next) => {
   })
     .then((user) => {
       const { name, email } = user;
-      res.send(name, email);
+      res.send({ name, email });
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -105,7 +105,7 @@ module.exports.getUserInfo = (req, res, next) => {
         throw new NotFoundError(notFoundErrorMessage);
       }
       const { name, email } = user;
-      res.send(name, email);
+      res.send({ name, email });
     })
     .catch(next);
 };
