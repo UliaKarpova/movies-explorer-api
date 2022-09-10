@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   console.log(`${req.method}: ${req.path} ${JSON.stringify(req.body)}`);
   next();
 });
-app.use('/', router);
+app.use('/api', router);
 
 app.use(errorLogger);
 app.use(errorProcessing);
