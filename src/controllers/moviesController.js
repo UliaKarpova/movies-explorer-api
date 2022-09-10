@@ -3,7 +3,7 @@ const UncorrectDataError = require('../errors/UncorrectDataError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenDeleteCardError = require('../errors/ForbiddenDeleteCardError');
 
-const { uncorrectDataErrorMessage, notFoundErrorMessageForVideo, forbiddenDeleteCardErrorMessage } = require('../utils/errorsMessages');
+const { uncorrectDataErrorMessage, notFoundErrorMessageForVideo, forbiddenDeleteCardErrorMessage } = require('../utils/messages');
 
 module.exports.createMovie = (req, res, next) => {
   const {
