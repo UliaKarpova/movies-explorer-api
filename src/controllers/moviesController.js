@@ -3,7 +3,12 @@ const UncorrectDataError = require('../errors/UncorrectDataError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenDeleteCardError = require('../errors/ForbiddenDeleteCardError');
 
-const { uncorrectDataErrorMessage, notFoundErrorMessageForVideo, forbiddenDeleteCardErrorMessage } = require('../utils/messages');
+const {
+  uncorrectDataErrorMessage,
+  notFoundErrorMessageForVideo,
+  forbiddenDeleteCardErrorMessage,
+  movieRemoved,
+} = require('../utils/messages');
 
 module.exports.createMovie = (req, res, next) => {
   const {
@@ -52,7 +57,7 @@ module.exports.deleteMovieById = (req, res, next) => {
         throw new ForbiddenDeleteCardError(forbiddenDeleteCardErrorMessage);
       }
       return movie.remove()
-        .then(() => res.send({ message: 'Фильм удалён' }));
+        .then(() => res.send({ message: movieRemoved }));
     })
     .catch((err) => {
       next(err);

@@ -4,6 +4,8 @@ module.exports.notFoundErrorMessageForUser = 'Пользователь не на
 module.exports.notFoundErrorMessageForRoute = 'Роут не найден';
 
 module.exports.forbiddenDeleteCardErrorMessage = 'Можно удалять только своё видео';
+module.exports.movieRemoved = 'Фильм удалён';
+
 module.exports.uncorrectEmailOrPasswordMessage = 'Неправильные почта или пароль';
 module.exports.userAlreadyExistsMessage = 'Пользователь с таким email уже существует';
 
