@@ -8,7 +8,7 @@ const { NODE_ENV, mongoDB } = process.env;
 
 const { mongo } = require('./src/utils/config');
 const { requestLogger, errorLogger } = require('./src/middlewares/logger');
-const rateLimit = require('./src/middlewares/rateLimit');
+const { rateLimit } = require('./src/middlewares/rateLimit');
 const errorProcessing = require('./src/middlewares/errorProcessing');
 const router = require('./src/routes/index');
 
