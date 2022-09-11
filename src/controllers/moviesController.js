@@ -31,6 +31,7 @@ module.exports.getMovies = (req, res, next) => {
 };
 
 module.exports.deleteMovieById = (req, res, next) => {
+  console.log(req.params.movieId);
   Movie.findById(req.params.movieId)
     .orFail(() => {
       throw new NotFoundError(notFoundErrorMessageForVideo);
