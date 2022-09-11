@@ -8,15 +8,11 @@ const { NODE_ENV, mongoDB } = process.env;
 
 const { mongo } = require('./src/utils/config');
 const { requestLogger, errorLogger } = require('./src/middlewares/logger');
-const { rateLimit } = require('./src/middlewares/rateLimit');
+const { limiter } = require('./src/middlewares/rateLimit');
 const errorProcessing = require('./src/middlewares/errorProcessing');
 const router = require('./src/routes/index');
 
 const app = express();
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
 app.use(requestLogger);
 app.use(limiter);
 app.use(express.json());
