@@ -13,17 +13,17 @@ const {
   yearRequiredError,
   descriptionRequiredError,
   imageRequiredError,
-  imageUncorrectError,
+  imageUncorrectedError,
   trailerRequiredError,
-  trailerUncorrectError,
+  trailerUncorrectedError,
   nameRuRequiredError,
   nameEnRequiredError,
   thumbnailRequiredError,
-  thumbnailUncorrectError,
+  thumbnailUncorrectedError,
   movieIdRequiredError,
   movieIdLenghtError,
-  movieIdAlphanumError,
-  movieIdUncorrectError,
+  movieIdUncorrectedError,
+  ownerUncorrectedError,
 } = require('../utils/messages');
 
 movieRoutes.post('/movies', celebrate({
@@ -51,12 +51,12 @@ movieRoutes.post('/movies', celebrate({
     image: Joi.string().pattern(regex).required()
       .messages({
         'string.required': imageRequiredError,
-        'string.pattern': imageUncorrectError,
+        'string.pattern': imageUncorrectedError,
       }),
     trailer: Joi.string().pattern(regex).required()
       .messages({
         'string.required': trailerRequiredError,
-        'string.pattern': trailerUncorrectError,
+        'string.pattern': trailerUncorrectedError,
       }),
     nameRu: Joi.string().required()
       .messages({
@@ -69,11 +69,15 @@ movieRoutes.post('/movies', celebrate({
     thumbnail: Joi.string().pattern(regex).required()
       .messages({
         'string.required': thumbnailRequiredError,
-        'string.pattern': thumbnailUncorrectError,
+        'string.pattern': thumbnailUncorrectedError,
       }),
-    movieId: Joi.string().required()
+    movieId: Joi.number().required()
       .messages({
-        'string.required': movieIdRequiredError,
+        'number.required': movieIdRequiredError,
+      }),
+    owner: Joi.string().required()
+      .messages({
+        'string.required': ownerUncorrectedError,
       }),
   }),
 }), createMovie);
@@ -82,11 +86,11 @@ movieRoutes.get('/movies', getMovies);
 
 movieRoutes.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().alphanum().length(24).hex()
+    movieId: Joi.number().length(24).hex().required()
       .messages({
+        'number.required': movieIdRequiredError,
         'string.length': movieIdLenghtError,
-        'string.alphanum': movieIdAlphanumError,
-        'string.hex': movieIdUncorrectError,
+        'string.hex': movieIdUncorrectedError,
       }),
   }),
 }), deleteMovieById);

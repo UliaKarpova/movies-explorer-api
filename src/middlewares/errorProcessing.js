@@ -1,4 +1,4 @@
-const errorMessage = 'Произошла ошибка';
+const { errorMessage } = require('../utils/messages');
 
 function errorProcessing(err, req, res, next) {
   const { statusCode = 500, message } = err;

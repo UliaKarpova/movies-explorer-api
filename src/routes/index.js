@@ -11,7 +11,7 @@ const {
 const {
   notFoundErrorMessageForRoute,
   emailRequiredError,
-  emailUncorrectError,
+  emailUncorrectedError,
   passwordRequiredError,
   nameRequiredError,
   nameMinError,
@@ -25,7 +25,7 @@ router.post('/signin', celebrate({
     email: Joi.string().email({ tlds: { allow: false } }).required()
       .messages({
         'string.required': emailRequiredError,
-        'string.email': emailUncorrectError,
+        'string.email': emailUncorrectedError,
       }),
     password: Joi.string().required()
       .messages({
@@ -45,7 +45,7 @@ router.post('/signup', celebrate({
     email: Joi.string().email({ tlds: { allow: false } }).required()
       .messages({
         'string.required': emailRequiredError,
-        'string.email': emailUncorrectError,
+        'string.email': emailUncorrectedError,
       }),
     password: Joi.string().required()
       .messages({

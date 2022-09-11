@@ -2,17 +2,17 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userSchema');
 const NotFoundError = require('../errors/NotFoundError');
-const UncorrectDataError = require('../errors/UncorrectDataError');
+const UncorrectedDataError = require('../errors/UncorrectedDataError');
 const UserAlreadyExistsError = require('../errors/UserAlreadyExistsError');
-const NeedAutarizationError = require('../errors/NeedAutarizationError');
+/* const NeedAutarizationError = require('../errors/NeedAutarizationError'); */
 const { devSecretKey } = require('../utils/config');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const {
-  uncorrectDataErrorMessage,
+  uncorrectedDataErrorMessage,
   notFoundErrorMessageForUser,
-  uncorrectEmailOrPasswordMessage,
+  /* uncorrectedEmailOrPasswordMessage, */
   userAlreadyExistsMessage,
   authCorrect,
   logoutCorrect,
@@ -34,23 +34,23 @@ module.exports.login = (req, res, next) => {
       });
       res.send({ message: authCorrect });
     })
-    .catch((err) => {
+    .catch(next);
+  /* (err) => {
       if (err.name === 'ValidationError') {
-        next(new NeedAutarizationError(uncorrectEmailOrPasswordMessage));
+        next(new NeedAutarizationError(uncorrectedEmailOrPasswordMessage));
       } else {
         next(err);
       }
-    });
+    }); */
 };
 
-module.exports.logout = (req, res, next) => {
+module.exports.logout = (req, res) => {
   res.clearCookie('jwt', {
     httpOnly: true,
     sameSite: 'none',
     secure: true,
   });
   res.send({ message: logoutCorrect });
-  next();
 };
 
 module.exports.createUser = (req, res, next) => {
@@ -68,13 +68,13 @@ module.exports.createUser = (req, res, next) => {
         data: {
           name, email,
         },
-      }).end();
+      });
     })
     .catch((err) => {
       if (err.code === 11000) {
         next(new UserAlreadyExistsError(userAlreadyExistsMessage));
       } else if (err.name === 'ValidationError') {
-        next(new UncorrectDataError(uncorrectDataErrorMessage));
+        next(new UncorrectedDataError(uncorrectedDataErrorMessage));
       } else {
         next(err);
       }
@@ -83,6 +83,13 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
+  User.find({ email })
+    .then((user) => {
+      if (user) {
+        next(new UserAlreadyExistsError(userAlreadyExistsMessage));
+      }
+    })
+    .catch(next);
   User.findByIdAndUpdate(req.user._id, {
     name,
     email,
@@ -91,12 +98,13 @@ module.exports.updateUserInfo = (req, res, next) => {
     runValidators: true,
   })
     .then((user) => {
-      const { userName, userEmail } = user;
+      const userName = user.name;
+      const userEmail = user.email;
       res.send({ userName, userEmail });
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
-        next(new UncorrectDataError(uncorrectDataErrorMessage));
+        next(new UncorrectedDataError(uncorrectedDataErrorMessage));
       } else {
         next(err);
       }

@@ -1,40 +1,23 @@
 const Movie = require('../models/movieSchema');
-const UncorrectDataError = require('../errors/UncorrectDataError');
+const UncorrectedDataError = require('../errors/UncorrectedDataError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenDeleteCardError = require('../errors/ForbiddenDeleteCardError');
 
 const {
-  uncorrectDataErrorMessage,
+  uncorrectedDataErrorMessage,
   notFoundErrorMessageForVideo,
   forbiddenDeleteCardErrorMessage,
   movieRemoved,
 } = require('../utils/messages');
 
 module.exports.createMovie = (req, res, next) => {
-  const {
-    country, director, duration, year, description, image,
-    trailer, nameRu, nameEn, thumbnail, movieId,
-  } = req.body;
-  Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailer,
-    nameRu,
-    nameEn,
-    thumbnail,
-    movieId,
-    owner: req.user._id,
-  })
+  Movie.create({ ...req.body, owner: req.user._id })
     .then((movie) => {
-      res.status(200).send({ movie }).end();
+      res.status(200).send({ movie });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new UncorrectDataError(uncorrectDataErrorMessage));
+        next(new UncorrectedDataError(uncorrectedDataErrorMessage));
       } else {
         next(err);
       }
