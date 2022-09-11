@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
+const { errors } = require('celebrate');
 
 const { NODE_ENV, mongoDB } = process.env;
 
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 app.use('/api', router);
 
 app.use(errorLogger);
+app.use(errors());
 app.use(errorProcessing);
 
 app.listen(PORT, () => {
