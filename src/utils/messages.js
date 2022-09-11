@@ -36,6 +36,4 @@ module.exports.thumbnailRequiredError = 'Поле thumbnail обязательн
 module.exports.thumbnailUncorrectedError = 'Поле thumbnail должно содержать ссылку';
 module.exports.movieIdRequiredError = 'Поле movieId обязательно';
 
-module.exports.ownerUncorrectedError = 'Ошибка в поле owner';
-
 module.exports.linkUncorrected = 'Ссылка указана неверно';

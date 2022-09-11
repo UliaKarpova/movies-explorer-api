@@ -21,7 +21,6 @@ const {
   thumbnailRequiredError,
   thumbnailUncorrectedError,
   movieIdRequiredError,
-  ownerUncorrectedError,
 } = require('../utils/messages');
 
 movieRoutes.post('/movies', celebrate({
@@ -72,10 +71,6 @@ movieRoutes.post('/movies', celebrate({
     movieId: Joi.number().required()
       .messages({
         'number.required': movieIdRequiredError,
-      }),
-    owner: Joi.string().required()
-      .messages({
-        'string.required': ownerUncorrectedError,
       }),
   }),
 }), createMovie);
