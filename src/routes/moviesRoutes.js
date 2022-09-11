@@ -21,7 +21,6 @@ const {
   thumbnailRequiredError,
   thumbnailUncorrectedError,
   movieIdRequiredError,
-  movieIdUncorrectedError,
   ownerUncorrectedError,
 } = require('../utils/messages');
 
@@ -85,10 +84,9 @@ movieRoutes.get('/movies', getMovies);
 
 movieRoutes.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
-    movieId: Joi.number().hex().required()
+    movieId: Joi.number().required()
       .messages({
         'number.required': movieIdRequiredError,
-        'string.hex': movieIdUncorrectedError,
       }),
   }),
 }), deleteMovieById);

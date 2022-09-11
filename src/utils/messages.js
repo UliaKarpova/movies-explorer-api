@@ -35,7 +35,6 @@ module.exports.nameEnRequiredError = 'Поле nameEN обязательно д�
 module.exports.thumbnailRequiredError = 'Поле thumbnail обязательно для заполнения';
 module.exports.thumbnailUncorrectedError = 'Поле thumbnail должно содержать ссылку';
 module.exports.movieIdRequiredError = 'Поле movieId обязательно';
-module.exports.movieIdUncorrectedError = 'Ошибка в поле movieId';
 
 module.exports.ownerUncorrectedError = 'Ошибка в поле owner';
 
