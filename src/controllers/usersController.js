@@ -35,13 +35,6 @@ module.exports.login = (req, res, next) => {
       res.send({ message: authCorrect });
     })
     .catch(next);
-  /* (err) => {
-      if (err.name === 'ValidationError') {
-        next(new NeedAutarizationError(uncorrectedEmailOrPasswordMessage));
-      } else {
-        next(err);
-      }
-    }); */
 };
 
 module.exports.logout = (req, res) => {
@@ -83,9 +76,9 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
-  User.find({ email })
+  User.findOne({ email })
     .then((user) => {
-      if (user) {
+      if (!user._id.equals(req.user._id)) {
         next(new UserAlreadyExistsError(userAlreadyExistsMessage));
       }
     })
@@ -100,7 +93,7 @@ module.exports.updateUserInfo = (req, res, next) => {
     .then((user) => {
       const userName = user.name;
       const userEmail = user.email;
-      res.send({ userName, userEmail });
+      res.send({ name: userName, email: userEmail });
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -112,7 +105,6 @@ module.exports.updateUserInfo = (req, res, next) => {
 };
 
 module.exports.getUserInfo = (req, res, next) => {
-  console.log(req.user._id);
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {

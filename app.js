@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
 
-const { PORT = 3002 } = process.env;
+const { PORT = 3001 } = process.env;
 mongoose.connect(NODE_ENV === 'production' ? mongoDB : mongo);
 
 app.use((req, res, next) => {

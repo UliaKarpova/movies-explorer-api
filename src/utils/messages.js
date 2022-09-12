@@ -24,6 +24,8 @@ module.exports.nameMaxError = 'Имя не может быть длинее 30 �
 module.exports.countryRequiredError = 'Поле country обязательно для заполнения';
 module.exports.directorRequiredError = 'Поле director обязательно для заполнения';
 module.exports.durationRequiredError = 'Поле duration обязательно для заполнения';
+module.exports.durationTypeError = 'Значение поля duration должно быть числом';
+
 module.exports.yearRequiredError = 'Поле year обязательно для заполнения';
 module.exports.descriptionRequiredError = 'Поле description обязательно для заполнения';
 module.exports.imageRequiredError = 'Поле image обязательно для заполнения';
@@ -35,5 +37,8 @@ module.exports.nameEnRequiredError = 'Поле nameEN обязательно д�
 module.exports.thumbnailRequiredError = 'Поле thumbnail обязательно для заполнения';
 module.exports.thumbnailUncorrectedError = 'Поле thumbnail должно содержать ссылку';
 module.exports.movieIdRequiredError = 'Поле movieId обязательно';
+module.exports.movieIdTypeError = 'Значение поля movieId должно быть числом';
 
+module.exports.movieIdLenghtError = 'В movieId должно быть 24 символа';
+module.exports.movieIdHexError = 'Ошибка данных в movieId';
 module.exports.linkUncorrected = 'Ссылка указана неверно';
