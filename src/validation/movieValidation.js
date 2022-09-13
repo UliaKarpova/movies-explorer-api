@@ -50,16 +50,16 @@ module.exports.createMovieValidation = celebrate({
         'any.required': imageRequiredError,
         'string.pattern.base': imageUncorrectedError,
       }),
-    trailer: Joi.string().pattern(regex).required()
+    trailerLink: Joi.string().pattern(regex).required()
       .messages({
         'string.pattern.base': trailerUncorrectedError,
         'any.required': trailerRequiredError,
       }),
-    nameRu: Joi.string().required()
+    nameRU: Joi.string().required()
       .messages({
         'any.required': nameRuRequiredError,
       }),
-    nameEn: Joi.string().required()
+    nameEN: Joi.string().required()
       .messages({
         'any.required': nameEnRequiredError,
       }),
