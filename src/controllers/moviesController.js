@@ -2,13 +2,11 @@ const Movie = require('../models/movieSchema');
 const UncorrectedDataError = require('../errors/UncorrectedDataError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenDeleteCardError = require('../errors/ForbiddenDeleteCardError');
-const UserAlreadyExistsError = require('../errors/UserAlreadyExistsError');
 
 const {
   uncorrectedDataErrorMessage,
   notFoundErrorMessageForVideo,
   forbiddenDeleteCardErrorMessage,
-  userAlreadyExistsMessage,
   movieRemoved,
 } = require('../utils/messages');
 
@@ -18,9 +16,7 @@ module.exports.createMovie = (req, res, next) => {
       res.status(200).send({ movie });
     })
     .catch((err) => {
-      if (err.code === 11000) {
-        next(new UserAlreadyExistsError(userAlreadyExistsMessage));
-      } else if (err.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         next(new UncorrectedDataError(uncorrectedDataErrorMessage));
       } else {
         next(err);

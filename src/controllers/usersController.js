@@ -76,13 +76,6 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
-  User.findOne({ email })
-    .then((user) => {
-      if (!user._id.equals(req.user._id)) {
-        next(new UserAlreadyExistsError(userAlreadyExistsMessage));
-      }
-    })
-    .catch(next);
   User.findByIdAndUpdate(req.user._id, {
     name,
     email,
@@ -96,7 +89,9 @@ module.exports.updateUserInfo = (req, res, next) => {
       res.send({ name: userName, email: userEmail });
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.code === 11000) {
+        next(new UserAlreadyExistsError(userAlreadyExistsMessage));
+      } else if (err.name === 'CastError' || err.name === 'ValidationError') {
         next(new UncorrectedDataError(uncorrectedDataErrorMessage));
       } else {
         next(err);
