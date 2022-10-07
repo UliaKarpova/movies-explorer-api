@@ -15,4 +15,4 @@ Express.js, MongoDB, API, GIT
 - основные роуты защищены от входа неавторизованных пользователей.
 
 Публичный IP: 158.160.8.221
-Домен: http://moviesexplorerdiploma.nomoredomains.sbs/api
+Домен: https://moviesexplorerdiploma.nomoredomains.sbs/api
