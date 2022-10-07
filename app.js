@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const { CORS } = require('./src/middlewares/CORS');
 
 const { NODE_ENV, mongoDB } = process.env;
 
@@ -14,6 +15,7 @@ const errorProcessing = require('./src/middlewares/errorProcessing');
 const router = require('./src/routes/index');
 
 const app = express();
+app.use(CORS);
 app.use(requestLogger);
 app.use(limiter);
 app.use(express.json());
