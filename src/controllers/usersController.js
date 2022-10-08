@@ -30,7 +30,7 @@ module.exports.login = (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         sameSite: 'none',
         httpOnly: true,
-        secure: true,
+        secure: false,
       });
       res.send({ message: authCorrect });
     })
@@ -41,7 +41,7 @@ module.exports.logout = (req, res) => {
   res.clearCookie('jwt', {
     httpOnly: true,
     sameSite: 'none',
-    secure: true,
+    secure: false,
   });
   res.send({ message: logoutCorrect });
 };
