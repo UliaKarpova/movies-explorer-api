@@ -4,7 +4,6 @@ const User = require('../models/userSchema');
 const NotFoundError = require('../errors/NotFoundError');
 const UncorrectedDataError = require('../errors/UncorrectedDataError');
 const UserAlreadyExistsError = require('../errors/UserAlreadyExistsError');
-/* const NeedAutarizationError = require('../errors/NeedAutarizationError'); */
 const { devSecretKey } = require('../utils/config');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -12,10 +11,8 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const {
   uncorrectedDataErrorMessage,
   notFoundErrorMessageForUser,
-  /* uncorrectedEmailOrPasswordMessage, */
   userAlreadyExistsMessage,
   authCorrect,
-  logoutCorrect,
 } = require('../utils/messages');
 
 module.exports.login = (req, res, next) => {
@@ -26,24 +23,10 @@ module.exports.login = (req, res, next) => {
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : devSecretKey,
       );
-      res.cookie('jwt', token, {
-        maxAge: 3600000 * 24 * 7,
-        sameSite: 'none',
-        httpOnly: true,
-        /* secure: true, */
-      });
+      res.send({ token });
       res.send({ message: authCorrect });
     })
     .catch(next);
-};
-
-module.exports.logout = (req, res) => {
-  res.clearCookie('jwt', {
-    httpOnly: true,
-    sameSite: 'none',
-    /* secure: true, */
-  });
-  res.send({ message: logoutCorrect });
 };
 
 module.exports.createUser = (req, res, next) => {

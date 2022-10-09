@@ -12,7 +12,6 @@ module.exports.uncorrectedEmailOrPasswordMessage = 'Неправильные п�
 module.exports.userAlreadyExistsMessage = 'Пользователь с таким email уже существует';
 
 module.exports.authCorrect = 'Аутентификация прошла успешно';
-module.exports.logoutCorrect = 'Выход осуществлён';
 
 module.exports.emailRequiredError = 'Поле email обязательно для заполнения';
 module.exports.emailUncorrectedError = 'Email указан неверно';
