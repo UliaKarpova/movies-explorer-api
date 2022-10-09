@@ -7,7 +7,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const { notFoundErrorMessageForRoute } = require('../utils/messages');
 const { createUserValidation, loginValidation } = require('../validation/userValidation');
 const {
-  login, logout, createUser,
+  login, createUser,
 } = require('../controllers/usersController');
 
 router.post('/signup', createUserValidation, createUser);
@@ -16,7 +16,6 @@ router.post('/signin', loginValidation, login);
 
 router.use(auth);
 
-router.post('/signout', logout);
 router.use(usersRouter);
 router.use(moviesRouter);
 router.use('/', () => {
